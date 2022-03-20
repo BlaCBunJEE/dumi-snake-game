@@ -15,6 +15,7 @@ food = Food()
 scoreboard = Scoreboard()
 
 screen.listen()
+
 screen.onkey(snake.up, "Up")
 screen.onkey(snake.down, "Down")
 screen.onkey(snake.left, "Left")
@@ -35,13 +36,15 @@ while game_on:
 
     # detect collision
     if snake.head.xcor() > 280 or snake.head.xcor() < -280 or snake.head.ycor() > 280 or snake.head.ycor() < -280:
-        game_on = False
-        scoreboard.game_over()
-
+        scoreboard.reset()
+        snake.reset()
     # detect tail collision
     for segment in snake.segments[1:]:
-        if snake.head.distance(segment) < 10:
-            game_on = False
-            scoreboard.game_over()
+        if segment == snake.head:
+            pass
+        elif snake.head.distance(segment) < 10:
+            scoreboard.reset()
 
 screen.exitonclick()
+
+# how do you make the snake move through the wall and come out on the opposite side
